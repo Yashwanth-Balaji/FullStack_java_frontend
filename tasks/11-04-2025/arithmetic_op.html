@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let a=parseInt(prompt("Enter the 'a' value="));
+        let b=parseInt(prompt("Enter the 'b' value="));
+        function arith(a,b){
+            return{ 
+                add:a+b,
+                sub:a-b,
+                mul:a*b,
+                div:a/b,
+                mod:a%b,
+                exp:a**b
+            }
+        }
+        let results=arith(a,b);
+        console.log(results.add )
+        console.log(results.sub )
+        console.log(results.mul )
+        console.log(results.div )
+        console.log(results.mod )
+        console.log(results.exp )
+
+    </script>
+</body>
+</html>
