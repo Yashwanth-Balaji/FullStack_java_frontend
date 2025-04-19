@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<input type="text" id="myInput" placeholder="Click me" onfocus="focused()">
+<input type="text" id="myInput" placeholder="Click me" onblur="blured()">
+
+<h1 onmouseout="released()">Heading</h1>
+<p onmouseover="placed()">Paragraph</p>
+<script>
+//   function focused(){
+//     alert(`the input is focused`)
+//   }
+  function blured(){
+    alert(`the input is blurred`)
+  }
+  function released(){
+    alert('mouse released')
+  }
+  function placed(){
+    alert('mouse placed')
+  }
+</script>
+
+</body>
+</html>

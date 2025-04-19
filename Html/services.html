@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-DQvkBjpPgn7RC31MCQoOeC9TI2kdqa4+BSgNMNj8v77fdC77Kj5zpWFTJaaAoMbC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+            .navbar-custom {
+      background: linear-gradient(to right, #2c3e50, #3498db);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .navbar-custom .nav-link {
+      color: white !important;
+      margin-right: 20px;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .navbar-custom .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      background-color: white;
+      left: 0;
+      bottom: 0;
+      transition: 0.3s ease-in-out;
+    }
+
+    .navbar-custom .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .navbar-custom .nav-link:hover {
+      color: #ffdd57 !important;
+    }
+
+    .card-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap; /* Wrap on smaller screens */
+  margin-top: 40px;
+}
+
+.custom-card {
+  width: 18rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 10px;
+}
+
+.custom-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container-fluid">
+          <a class="navbar-brand text-white fw-bold" href="">
+            <i class="fas fa-store"></i> SLV Agencies
+          </a>
+          <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" href="http://127.0.0.1:5500/Html/bootstrap_website.html"><i class="fas fa-home me-2"></i>Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:5500/Html/products.html"><i class="fas fa-box-open me-2"></i>Products</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:5500/Html/services.html"><i class="fas fa-cogs me-2"></i>Services</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:5500/Html/contact.html"><i class="fas fa-phone me-2"></i>Contact</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <section class="services-section py-5 bg-light">
+        <div class="container">
+          <h2 class="text-center mb-5 text-primary fw-bold">Our Services</h2>
+          <div class="row g-4 justify-content-center">
+      
+            <div class="col-md-3">
+              <div class="card service-card h-100 text-center p-3 shadow-sm">
+                <div class="card-body">
+                  <i class="fas fa-warehouse fa-3x text-info mb-3"></i>
+                  <h5 class="card-title">Distribution Point</h5>
+                  <p class="card-text">A major hub offering wide coverage and consistent stock for retailers and customers.</p>
+                </div>
+              </div>
+            </div>
+      
+            <div class="col-md-3">
+              <div class="card service-card h-100 text-center p-3 shadow-sm">
+                <div class="card-body">
+                  <i class="fas fa-store fa-3x text-success mb-3"></i>
+                  <h5 class="card-title">Quick Shop</h5>
+                  <p class="card-text">Grab your essentials quickly with an organized and easy shopping experience.</p>
+                </div>
+              </div>
+            </div>
+      
+            <div class="col-md-3">
+              <div class="card service-card h-100 text-center p-3 shadow-sm">
+                <div class="card-body">
+                  <i class="fas fa-shipping-fast fa-3x text-warning mb-3"></i>
+                  <h5 class="card-title">ShopDelivery</h5>
+                  <p class="card-text">Fast and reliable delivery service straight from our store to your doorstep.</p>
+                </div>
+              </div>
+            </div>
+      
+            <div class="col-md-3">
+              <div class="card service-card h-100 text-center p-3 shadow-sm">
+                <div class="card-body">
+                  <i class="fas fa-tags fa-3x text-danger mb-3"></i>
+                  <h5 class="card-title">Reasonable Prices</h5>
+                  <p class="card-text">We provide high-quality products at pocket-friendly and competitive prices.</p>
+                </div>
+              </div>
+            </div>
+      
+          </div>
+        </div>
+      </section>
+      
+      
+</body>
+</html>
