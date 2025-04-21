@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Live Cookie Expiry</title>
+  <style>
+    .form {
+      border: 1px solid black;
+      border-radius: 20px;
+      width: 300px;
+      padding: 10px;
+      margin: 30px auto;
+      background-color: bisque;
+      text-align: center;
+    }
+    #cookie-status {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <form name="form" class="form" onsubmit="return false;">
+    <label for="name">Name:</label>
+    <input type="text" name="name" id="name"><br><br>
+    
+    <label for="pass">Password:</label>
+    <input type="password" name="pass" id="pass"><br><br>
+
+    <input type="button" value="Set Cookie" onclick="setCookie()">
+    <input type="button" value="Get Cookie" onclick="getCookie()">
+    
+    <div id="cookie-status">Cookie not set.</div>
+  </form>
+
+  <script>
+    let cookieExpiryTime = null;
+
+    function setCookie() {
+      const name = document.getElementById("name").value;
+      document.cookie = `Name=${name}; max-age=10; path=/`;
+      cookieExpiryTime = Date.now() + 10000; // Save JS expiry time
+      updateCookieStatus();
+    }
+
+    function getCookie() {
+      const cookies = document.cookie.split("; ");
+      const nameCookie = cookies.find(c => c.startsWith("Name="));
+      if (nameCookie) {
+        alert("Cookie: " + nameCookie.split("=")[1]);
+      } else {
+        alert("Cookie not found or expired.");
+      }
+    }
+
+    function updateCookieStatus() {
+      const statusDiv = document.getElementById("cookie-status");
+
+      const interval = setInterval(() => {
+        const cookies = document.cookie.split("; ");
+        const nameCookie = cookies.find(c => c.startsWith("Name="));
+
+        if (nameCookie) {
+          const timeLeft = Math.max(0, Math.floor((cookieExpiryTime - Date.now()) / 1000));
+          statusDiv.textContent = `Cookie is active. Expires in ${timeLeft}s.`;
+        } else {
+          statusDiv.textContent = "Cookie has expired.";
+          clearInterval(interval);
+        }
+      }, 1000);
+    }
+  </script>
+</body>
+</html>

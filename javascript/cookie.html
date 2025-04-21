@@ -4,9 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .form{
+            border:1px solid black ;
+            border-radius: 20px;
+            width:300px;
+            align-items: center;
+            justify-items: center;
+            padding:10px;
+            align-self: center;
+            margin-top:auto;
+            align-items: flex-start;
+            justify-content: center;
+            margin-left:0px;
+            position: relative;
+            background-color: bisque;
+        }
+    </style>
 </head>
 <body>
-    <form name="form" action="">
+    <form name="form" action="" class="form" align="center">
         <label for="name" >Name:</label><input type="text" name="name" id="name"><br><br>
         <label for="pass">Password:</label><input type="password" name="pass" id="pass"><br><br>
         
@@ -17,7 +34,7 @@
 </body>
 <script>
     function setCookie(){
-        document.cookie=form.name.value
+        document.cookie=`${form.name.value};max-age=5s;`;
     }
     function getCookie(){
         alert(document.cookie)

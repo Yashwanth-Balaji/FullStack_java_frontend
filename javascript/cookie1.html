@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Live Cookie Expiry</title>
+  <style>
+    .form {
+      border: 1px solid black;
+      border-radius: 20px;
+      width: 300px;
+      padding: 10px;
+      margin: 30px auto;
+      background-color: bisque;
+      text-align: center;
+    }
+    #cookie-status {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <form name="form" class="form" onsubmit="return false;">
+    <label for="name">Name:</label>
+    <input type="text" name="name" id="name"><br><br>
+    
+    <label for="pass">Password:</label>
+    <input type="password" name="pass" id="pass"><br><br>
+
+    <input type="button" value="Set Cookie" onclick="setCookie()">
+    <input type="button" value="Get Cookie" onclick="getCookie()">
+
+  </form>
+
+  <script>
+    function setCookie() {
+        document.cookie = `Name=${form.name.value}; max-age=10;`;
+    }
+
+    function getCookie() {
+        alert(document.cookie);
+    }
+</script>
+</body>
+</html>
