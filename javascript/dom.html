@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="h1" align="center">DOM Manipulation</h1>
+    <div>
+        <p class="c1 c2">Para 1</p>
+        <p class="c2">Para 2</p>
+    </div>
+    <div>
+        <h2>Heading2</h2>
+        <p class="c1">Paragraph</p>
+    </div>
+
+    <script>
+        document.write("<hr>");
+
+        // Get the first element with class 'c1'
+        var data = document.querySelector('.c1').innerHTML;
+        document.write(data + "<br>");
+
+        // Get all elements with class 'c1'
+        var data2 = document.querySelectorAll('.c1');
+
+        // Use for loop instead of for...in
+        for (let i = 0; i < data2.length; i++) {
+            document.write(data2[i].innerHTML + "<br>");
+        }
+    </script>
+</body>
+</html>
