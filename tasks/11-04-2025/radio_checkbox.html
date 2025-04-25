@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Information Form</title>
+    <style>
+        .form {
+            width: 300px;
+            margin: 30px auto;
+        }
+
+        fieldset {
+            border-radius: 10px;
+            background-color: whitesmoke;
+            padding: 15px;
+        }
+
+        body {
+            background-color: #000;
+            color: #000;
+            margin:190px;
+        }
+
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .flex-container > div {
+            flex: 1;
+        }
+
+        label {
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+    <form class="form">
+        <fieldset>
+            <h3 align="center">Information Desk</h3>
+
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" autocomplete="name" required><br><br>
+
+            <label for="phone">Phone:</label>
+            <input type="number" id="phone" name="phone" autocomplete="tel" required><br><br>
+            
+            <div class="flex-container">
+                <div>
+                    <label><b>Gender</b><br>
+                        <input type="radio" id="male" name="gender" value="male">
+                        <label for="male">Male</label><br>
+                        
+                        <input type="radio" id="female" name="gender" value="female">
+                        <label for="female">Female</label><br>
+                        
+                        <input type="radio" id="others" name="gender" value="others">
+                        <label for="others">Others</label><br>
+                    </label>
+                </div>
+                <div>
+                    <label><b>Course</b><br>
+                        <input type="checkbox" id="java" name="course" value="java">
+                        <label for="java">Java</label><br>
+                        
+                        <input type="checkbox" id="js" name="course" value="js">
+                        <label for="js">JavaScript</label><br>
+                        
+                        <input type="checkbox" id="python" name="course" value="python">
+                        <label for="python">Python</label><br>
+                        
+                        <input type="checkbox" id="c" name="course" value="c">
+                        <label for="c">C</label><br>
+                        
+                        <input type="checkbox" id="cpp" name="course" value="c++">
+                        <label for="cpp">C++</label><br>
+                    </label>
+                </div>
+            </div><br>
+
+            <div align="center">
+                <button type="button" onclick="display()">Submit</button>
+                <button type="reset">Reset</button>
+            </div>
+        </fieldset>
+    </form>
+
+    <script>
+        function display() {
+            const name = document.getElementById("name").value;
+            const phone = document.getElementById("phone").value;
+
+            const gender = document.querySelector('input[name="gender"]:checked');
+            const selectedGender = gender ? gender.value : "None";
+
+            const courses = document.querySelectorAll('input[name="course"]:checked');
+            const selectedCourses = Array.from(courses).map(course => course.value);
+
+            console.log("Name:", name);
+            console.log("Phone:", phone);
+            console.log("Selected Gender:", selectedGender);
+            console.log("Selected Courses:", selectedCourses.length ? selectedCourses.join(", ") : "None");
+        }
+    </script>
+</body>
+</html>
