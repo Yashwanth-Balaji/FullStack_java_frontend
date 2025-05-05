@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Validations</title>
+    </head>
+    <body>
+        <h1 id="h1">Validations </h1>
+        <form id="form" action="popus.html" onsubmit="display()" target="_blank">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br><br>
+    
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br><br>
+
+            <select name="location" id ="loc">
+                <option value="">----SELECT OPTION----</option>
+                <option value="kerala">Kerala</option>
+                <option value="AP">AP</option>
+                <option value="Tn">TamilNadu</option>
+                <option value="Karnataka">Karnataka</option>  
+            </select>
+            <br><br>
+            <label for="gender">Gender</label><br>
+            <input type="radio" id="male" name="gender" value="male">Male</label>
+            <input type="radio" id="female" name="gender" value="female">Female</label>
+            <input type="radio" id="others" name="gender" value="others">Others</label>
+
+
+            <br><br>
+
+            <label for="skills">Skills</label>
+            <input type="checkbox" id="html" name="skills" value="html">HTML</label>
+            <input type="checkbox" id="css" name="skills" value="css">CSS</label>   
+            <input type="checkbox" id="js" name="skills" value="js">JavaScript</label>
+            <input type="checkbox" id="java" name="skills" value="java">Java</label>    
+            <input type="checkbox" id="python" name="skills" value="python">Python</label>
+            
+            <br><br>
+
+            <button type="submit">Submit</button>
+            <button type="reset">Reset</button>
+        </form>     
+        <script>
+            function display() {
+                var name = document.getElementById("name").value;
+                var password = document.getElementById("password").value;
+                var location = document.getElementById("loc").value;
+
+                var gender = document.querySelector('input["gender"]:checked').value;
+                var selectedGen=gender?gender.value:"Not selected";
+                var skills = document.querySelectorAll('input[name="skills"]:checked');
+                var selectedSkills='';
+                for(var ele of skills){
+                    selectedSkills+=ele.value+',';
+                }
+
+                alert(`The name is ${name} and password is ${password} and location is ${location} selected gender is ${selectedGen} and selected skills are ${selectedSkills}`);
+            }
+        </script>
+    </body>
+
+</html>
