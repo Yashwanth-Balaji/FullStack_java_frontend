@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <style>
+        .fs {
+            margin: auto;
+            margin-top: 70px;
+            width: 300px;
+            padding: 20px;
+            box-shadow: 2px 2px 2px 2px rgb(16, 255, 215);
+            border-radius: 20px;
+            color: white;
+        }
+
+        body {
+            background-color: black;
+        }
+
+        h1 {
+            color: yellow;
+            text-align: center;
+            margin-top: 100px;
+            font-family: 'Lucida Handwriting';
+            font-size: xx-large;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 90%;
+            padding: 10px;
+            margin: 5px 0 10px 0;
+            border: none;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+        }
+
+        button[type="submit"],
+        button[type="reset"] {
+            width: 45%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            margin: 5px 0 10px 0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        span {
+            color: red;
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+    <h1>Login Form</h1>
+    <form onsubmit="return validateForm()">
+        <fieldset class="fs">
+            <label for="nameInput">Name:</label>
+            <input type="text" name="name" id="nameInput">
+            <span id="span1">*Cannot be empty</span><br><br>
+
+            <label for="emailInput">Email:</label>
+            <input type="email" id="emailInput" name="mail">
+            <span id="span2">*Need the exact requirements</span><br><br>
+
+            <label for="passInput">Password:</label>
+            <input type="password" id="passInput" name="pass">
+            <span id="span3">*Password cannot be empty</span><br><br>
+
+            <label for="cpassInput">Confirm Password:</label>
+            <input type="password" name="cpass" id="cpassInput">
+            <span id="span4">*Password does not match</span><br><br>
+
+            <div class="btn">
+                <button type="submit" id="submit">Submit</button>
+                <button type="reset" id="reset">Reset</button>
+            </div>
+        </fieldset>
+    </form>
+
+    <script>
+        function validateForm() {
+            var name = document.getElementById("nameInput");
+            var email = document.getElementById("emailInput");
+            var password = document.getElementById("passInput");
+            var confirmPassword = document.getElementById("cpassInput");
+
+            let isValid = true;
+
+            if (name.value.trim() === "") {
+                document.getElementById("span1").style.visibility = "visible";
+                name.style.border = "2px solid red";
+                isValid = false;
+            } else {
+                document.getElementById("span1").style.visibility = "hidden";
+                name.style.border = "";
+            }
+
+            if (email.value.trim() === "") {
+                document.getElementById("span2").style.visibility = "visible";
+                email.style.border = "2px solid red";
+                isValid = false;
+            } else {
+                document.getElementById("span2").style.visibility = "hidden";
+                email.style.border = "";
+            }
+
+            if (password.value.trim() === "") {
+                document.getElementById("span3").style.visibility = "visible";
+                password.style.border = "2px solid red";
+                isValid = false;
+            } else {
+                document.getElementById("span3").style.visibility = "hidden";
+                password.style.border = "";
+            }
+
+            if (confirmPassword.value.trim() === "") {
+                document.getElementById("span4").style.visibility = "visible";
+                confirmPassword.style.border = "2px solid red";
+                isValid = false;
+            } else if (password.value !== confirmPassword.value) {
+                document.getElementById("span4").style.visibility = "visible";
+                confirmPassword.style.border = "2px solid red";
+                isValid = false;
+            } else {
+                document.getElementById("span4").style.visibility = "hidden";
+                confirmPassword.style.border = "";
+            }
+
+            return isValid;
+        }
+    </script>
+</body>
+</html>
