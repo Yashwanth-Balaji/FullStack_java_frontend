@@ -1,0 +1,48 @@
+C:\Users\Hemasrinivas>mongosh
+Current Mongosh Log ID: 6826e7b02005e629986c4bcf
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.1
+Using MongoDB:          8.0.9
+Using Mongosh:          2.5.1
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+
+To help improve our products, anonymous usage data is collected and sent to MongoDB periodically (https://www.mongodb.com/legal/privacy-policy).
+You can opt-out by running the disableTelemetry() command.
+
+------
+   The server generated these startup warnings when booting
+   2025-05-16T11:25:39.250+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> show dbs
+admin   40.00 KiB
+config  12.00 KiB
+local   40.00 KiB
+test> use mydb
+switched to db mydb
+mydb> db.createCollection("prod")
+{ ok: 1 }
+mydb> show dbs
+admin   40.00 KiB
+config  60.00 KiB
+local   40.00 KiB
+mydb     8.00 KiB
+mydb> show collection
+MongoshInvalidInputError: [COMMON-10001] 'collection' is not a valid argument for "show".
+mydb> show collections
+prod
+mydb> db.prod.insertOne({name:"Product A",price:99.73})
+{
+  acknowledged: true,
+  insertedId: ObjectId('6826e98d2005e629986c4bd0')
+}
+mydb> db.prod.find()
+[
+  {
+    _id: ObjectId('6826e98d2005e629986c4bd0'),
+    name: 'Product A',
+    price: 99.73
+  }
+]
+mydb> exit

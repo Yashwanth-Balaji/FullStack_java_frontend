@@ -1,0 +1,6 @@
+creating a table with employee
+
+create table employee(emp_id int auto_increment primary key, emp_name varchar(30), dob date, doj date, salary decimal(6,3));
+
+
+insert into employee(emp_name,dob,doj,salary)values('Poojitha', '2002-07-02', '2025-09-26',26000.68);

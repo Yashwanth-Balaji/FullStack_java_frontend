@@ -1,0 +1,642 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.36 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> CREATE TABLE Departments (
+    ->     dept_id INT PRIMARY KEY,
+    ->     dept_name VARCHAR(50)
+    -> );
+ERROR 1046 (3D000): No database selected
+mysql> use jainx;
+Database changed
+mysql> CREATE TABLE Departments (
+    ->     dept_id INT PRIMARY KEY,
+    ->     dept_name VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> CREATE TABLE Employees (
+    ->     emp_id INT PRIMARY KEY,
+    ->     name VARCHAR(50),
+    ->     dept_id INT,
+    ->     FOREIGN KEY (dept_id) REFERENCES Departments(dept_id)
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> INSERT INTO Departments (dept_id, dept_name) VALUES
+    -> (10, 'HR'),
+    -> (20, 'Engineering'),
+    -> (40, 'Marketing');
+Query OK, 3 rows affected (0.04 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Employees (emp_id, name, dept_id) VALUES
+    -> (1, 'Alice', 10),
+    -> (2, 'Bob', 20),
+    -> (3, 'Charlie', 30),   -- This dept_id doesn't exist in Departments
+    -> (4, 'David', NULL);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`jainx`.`employees`, CONSTRAINT `employees_ibfk_1` FOREIGN KEY (`dept_id`) REFERENCES `departments` (`dept_id`))
+mysql> INSERT INTO Departments (dept_id, dept_name) VALUES (30, 'Sales');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Employees (emp_id, name, dept_id) VALUES
+    -> (1, 'Alice', 10),
+    -> (2, 'Bob', 20),
+    -> (3, 'Charlie', 30),
+    -> (4, 'David', NULL);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> INSERT INTO Departments (dept_id, dept_name) VALUES
+    -> (10, 'HR'),
+    -> (20, 'Engineering'),
+    -> (40, 'Marketing');
+ERROR 1062 (23000): Duplicate entry '10' for key 'departments.PRIMARY'
+mysql>
+mysql> -- Insert into Employees
+mysql> INSERT INTO Employees (emp_id, name, dept_id) VALUES
+    -> (1, 'Alice', 10),
+    -> (2, 'Bob', 20),
+    -> (3, 'Charlie', 30),   -- This dept_id doesn't exist in Departments
+    -> (4, 'David', NULL);
+ERROR 1062 (23000): Duplicate entry '1' for key 'employees.PRIMARY'
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> INSERT INTO Employees (emp_id, name, dept_id)
+    -> VALUES
+    -> (1, 'Alice', 10),
+    -> (2, 'Bob', 20),
+    -> (3, 'Charlie', 30),
+    -> (4, 'David', NULL);
+ERROR 1062 (23000): Duplicate entry '1' for key 'employees.PRIMARY'
+mysql> DELETE FROM Employees;
+Query OK, 4 rows affected (0.03 sec)
+
+mysql> INSERT INTO Employees (emp_id, name, dept_id)
+    -> VALUES
+    -> (5, 'Alice', 10),
+    -> (6, 'Bob', 20),
+    -> (7, 'Charlie', 30),
+    -> (8, 'David', NULL);
+Query OK, 4 rows affected (0.02 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> SELECT
+    ->     e.emp_id,
+    ->     e.name,
+    ->     d.dept_id,
+    ->     d.dept_name
+    -> FROM
+    ->     Employees e
+    -> RIGHT JOIN
+    ->     Departments d
+    -> ON
+    ->     e.dept_id = d.dept_id;
++--------+---------+---------+-------------+
+| emp_id | name    | dept_id | dept_name   |
++--------+---------+---------+-------------+
+|      5 | Alice   |      10 | HR          |
+|      6 | Bob     |      20 | Engineering |
+|      7 | Charlie |      30 | Sales       |
+|   NULL | NULL    |      40 | Marketing   |
++--------+---------+---------+-------------+
+4 rows in set (0.01 sec)
+
+mysql> SELECT
+    ->     e.emp_id,
+    ->     e.name,
+    ->     d.dept_id,
+    ->     d.dept_name
+    -> FROM
+    ->     Employees e
+    -> RIGHT JOIN
+    ->     Departments d
+    -> ON
+    ->     e.dept_id = d.dept_id
+    -> WHERE
+    ->     e.emp_id IS NOT NULL;
++--------+---------+---------+-------------+
+| emp_id | name    | dept_id | dept_name   |
++--------+---------+---------+-------------+
+|      5 | Alice   |      10 | HR          |
+|      6 | Bob     |      20 | Engineering |
+|      7 | Charlie |      30 | Sales       |
++--------+---------+---------+-------------+
+3 rows in set (0.03 sec)
+
+mysql> select * from student;
+ERROR 1146 (42S02): Table 'jainx.student' doesn't exist
+mysql> CREATE TABLE Student (
+    ->     student_id INT PRIMARY KEY,
+    ->     name VARCHAR(100),
+    ->     age INT,
+    ->     gender ENUM('Male', 'Female', 'Other'),
+    ->     course VARCHAR(100)
+    -> );
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> INSERT INTO Student (student_id, name, age, gender, course) VALUES
+    -> (1, 'Anjali', 21, 'Female', 'Computer Science'),
+    -> (2, 'Rahul', 22, 'Male', 'Mechanical Engineering'),
+    -> (3, 'Priya', 20, 'Female', 'Electrical Engineering'),
+    -> (4, 'Aman', 23, 'Male', 'Civil Engineering'),
+    -> (5, 'Sara', 21, 'Other', 'Information Technology');
+Query OK, 5 rows affected (0.03 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> create view sample As select * from student;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> create view sample As select * from Student;
+ERROR 1050 (42S01): Table 'sample' already exists
+mysql> drop sample;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sample' at line 1
+mysql> drop view sample;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create view sample As select * from Student;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from sample;
++------------+--------+------+--------+------------------------+
+| student_id | name   | age  | gender | course                 |
++------------+--------+------+--------+------------------------+
+|          1 | Anjali |   21 | Female | Computer Science       |
+|          2 | Rahul  |   22 | Male   | Mechanical Engineering |
+|          3 | Priya  |   20 | Female | Electrical Engineering |
+|          4 | Aman   |   23 | Male   | Civil Engineering      |
+|          5 | Sara   |   21 | Other  | Information Technology |
++------------+--------+------+--------+------------------------+
+5 rows in set (0.03 sec)
+
+mysql> INSERT INTO Student (student_id, name, age, gender, course)
+    -> VALUES (6, 'Yash', 22, 'Male', 'Data Science');
+Query OK, 1 row affected (0.03 sec)
+
+mysql>
+mysql> SELECT * FROM sample;
++------------+--------+------+--------+------------------------+
+| student_id | name   | age  | gender | course                 |
++------------+--------+------+--------+------------------------+
+|          1 | Anjali |   21 | Female | Computer Science       |
+|          2 | Rahul  |   22 | Male   | Mechanical Engineering |
+|          3 | Priya  |   20 | Female | Electrical Engineering |
+|          4 | Aman   |   23 | Male   | Civil Engineering      |
+|          5 | Sara   |   21 | Other  | Information Technology |
+|          6 | Yash   |   22 | Male   | Data Science           |
++------------+--------+------+--------+------------------------+
+6 rows in set (0.00 sec)
+
+mysql> DROP VIEW sample;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> CREATE VIEW sample AS
+    -> SELECT name, course FROM Student;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from sample;
++--------+------------------------+
+| name   | course                 |
++--------+------------------------+
+| Anjali | Computer Science       |
+| Rahul  | Mechanical Engineering |
+| Priya  | Electrical Engineering |
+| Aman   | Civil Engineering      |
+| Sara   | Information Technology |
+| Yash   | Data Science           |
++--------+------------------------+
+6 rows in set (0.02 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> selct * from sample;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selct * from sample' at line 1
+mysql> select * from sample;
++--------+------------------------+
+| name   | course                 |
++--------+------------------------+
+| Anjali | Computer Science       |
+| Rahul  | Mechanical Engineering |
+| Priya  | Electrical Engineering |
+| Aman   | Civil Engineering      |
+| Sara   | Information Technology |
+| Yash   | Data Science           |
++--------+------------------------+
+6 rows in set (0.00 sec)
+
+mysql> CREATE TABLE Course (
+    ->     course_id INT PRIMARY KEY,
+    ->     course_name VARCHAR(100),
+    ->     duration VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> DROP TABLE IF EXISTS Student;
+Query OK, 0 rows affected (0.08 sec)
+
+mysql>
+mysql> CREATE TABLE Student (
+    ->     student_id INT PRIMARY KEY,
+    ->     name VARCHAR(100),
+    ->     age INT,
+    ->     gender ENUM('Male', 'Female', 'Other'),
+    ->     course_id INT,
+    ->     FOREIGN KEY (course_id) REFERENCES Course(course_id)
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> INSERT INTO Course (course_id, course_name, duration) VALUES
+    -> (101, 'Computer Science', '4 Years'),
+    -> (102, 'Mechanical Engineering', '4 Years'),
+    -> (103, 'Electrical Engineering', '4 Years'),
+    -> (104, 'Civil Engineering', '4 Years'),
+    -> (105, 'Data Science', '2 Years');
+Query OK, 5 rows affected (0.03 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Student (student_id, name, age, gender, course_id) VALUES
+    -> (1, 'Anjali', 21, 'Female', 101),
+    -> (2, 'Rahul', 22, 'Male', 102),
+    -> (3, 'Priya', 20, 'Female', 103),
+    -> (4, 'Aman', 23, 'Male', 104),
+    -> (5, 'Sara', 21, 'Other', 105),
+    -> (6, 'Yash', 22, 'Male', 105);
+Query OK, 6 rows affected (0.01 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> SELECT
+    ->     s.student_id,
+    ->     s.name,
+    ->     s.age,
+    ->     s.gender,
+    ->     c.course_name,
+    ->     c.duration
+    -> FROM
+    ->     Student s
+    -> INNER JOIN
+    ->     Course c ON s.course_id = c.course_id;
++------------+--------+------+--------+------------------------+----------+
+| student_id | name   | age  | gender | course_name            | duration |
++------------+--------+------+--------+------------------------+----------+
+|          1 | Anjali |   21 | Female | Computer Science       | 4 Years  |
+|          2 | Rahul  |   22 | Male   | Mechanical Engineering | 4 Years  |
+|          3 | Priya  |   20 | Female | Electrical Engineering | 4 Years  |
+|          4 | Aman   |   23 | Male   | Civil Engineering      | 4 Years  |
+|          5 | Sara   |   21 | Other  | Data Science           | 2 Years  |
+|          6 | Yash   |   22 | Male   | Data Science           | 2 Years  |
++------------+--------+------+--------+------------------------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select * from Student;
++------------+--------+------+--------+-----------+
+| student_id | name   | age  | gender | course_id |
++------------+--------+------+--------+-----------+
+|          1 | Anjali |   21 | Female |       101 |
+|          2 | Rahul  |   22 | Male   |       102 |
+|          3 | Priya  |   20 | Female |       103 |
+|          4 | Aman   |   23 | Male   |       104 |
+|          5 | Sara   |   21 | Other  |       105 |
+|          6 | Yash   |   22 | Male   |       105 |
++------------+--------+------+--------+-----------+
+6 rows in set (0.00 sec)
+
+mysql> Select * from Course;
++-----------+------------------------+----------+
+| course_id | course_name            | duration |
++-----------+------------------------+----------+
+|       101 | Computer Science       | 4 Years  |
+|       102 | Mechanical Engineering | 4 Years  |
+|       103 | Electrical Engineering | 4 Years  |
+|       104 | Civil Engineering      | 4 Years  |
+|       105 | Data Science           | 2 Years  |
++-----------+------------------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> create table customer(acc_no integer primary key,
+    -> cust_name varchar2(50),
+    -> avail_balance decimal(10,2));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varchar2(50),
+avail_balance decimal(10,2))' at line 2
+mysql> create table customer(acc_no integer primary key,
+    -> cust_name varchar(50),
+    -> avail_balance decimal(10,2));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> create table mini_stmt(acc_no integer, avail_balance decimal(10,2), foreign key(acc_no) references customer(acc_no) on delete cascade;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> create table mini_stmt(acc_no integer, avail_balance decimal(10,2), foreign key(acc_no) references customer(acc_no) on delete cascade);
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> insert into customer values(1000,'Fanny', 7000);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into customer values(1001,'Parker', 12700);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> create trigger trig_acc
+    -> before update on customer
+    -> for each row
+    -> begin
+    -> insert into mini_stmt
+    -> values(old.acc, old.avail_balance);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 6
+mysql> DELIMITER $$
+mysql>
+mysql> CREATE TRIGGER trig_acc
+    -> BEFORE UPDATE ON customer
+    -> FOR EACH ROW
+    -> BEGIN
+    ->     INSERT INTO mini_stmt (acc_no, avail_balance)
+    ->     VALUES (OLD.acc_no, OLD.avail_balance);
+    -> END $$
+Query OK, 0 rows affected (0.04 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql> update customer set avail_balance=avail_balance+3000 where acc_no=1001;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from mini_stmt;
++--------+---------------+
+| acc_no | avail_balance |
++--------+---------------+
+|   1001 |      12700.00 |
++--------+---------------+
+1 row in set (0.00 sec)
+
+mysql> select * from mini_stmt;
++--------+---------------+
+| acc_no | avail_balance |
++--------+---------------+
+|   1001 |      12700.00 |
++--------+---------------+
+1 row in set (0.00 sec)
+
+mysql> select * from customer;
++--------+-----------+---------------+
+| acc_no | cust_name | avail_balance |
++--------+-----------+---------------+
+|   1000 | Fanny     |       7000.00 |
+|   1001 | Parker    |      15700.00 |
++--------+-----------+---------------+
+2 rows in set (0.00 sec)
+
+mysql> create table micro_stmt(acc_no integer, avail_balance decimal(10,2), foreign key(acc_no) references customer(acc_no) on delete cascade);
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> insert into customer values(1002,'janne',4500);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> create trigger update_after
+    -> AFTER UPDATE ON custmer
+    -> FOR EACH ROW
+    -> BEGIN
+    -> INSERT into micro_stmt values(new.acc_no,avail_balance);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 5
+mysql> DELIMITER $$
+mysql>
+mysql> CREATE TRIGGER update_after
+    -> AFTER UPDATE ON customer
+    -> FOR EACH ROW
+    -> BEGIN
+    ->     INSERT INTO micro_stmt (acc_no, avail_balance)
+    ->     VALUES (NEW.acc_no, NEW.avail_balance);
+    -> END $$
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql> update customer set avail_balance=avail_balance+15000 where acc_no=1002;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from micro_stmt;
++--------+---------------+
+| acc_no | avail_balance |
++--------+---------------+
+|   1002 |      19500.00 |
++--------+---------------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql> DELIMITER $$
+mysql>
+mysql> CREATE TRIGGER before_delete
+    -> BEFORE DELETE ON customer
+    -> FOR EACH ROW
+    -> BEGIN
+    ->     DELETE FROM micro_stmt WHERE acc_no = OLD.acc_no;
+    -> END$$
+Query OK, 0 rows affected (0.05 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql>
+mysql>
+mysql> select * from micro_stmt;
++--------+---------------+
+| acc_no | avail_balance |
++--------+---------------+
+|   1002 |      19500.00 |
++--------+---------------+
+1 row in set (0.00 sec)
+
+mysql> DELETE FROM micro_stmt WHERE acc_no = 1002;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from micro_stmt;
+Empty set (0.00 sec)
+
+mysql> select * from customer;
++--------+-----------+---------------+
+| acc_no | cust_name | avail_balance |
++--------+-----------+---------------+
+|   1000 | Fanny     |       7000.00 |
+|   1001 | Parker    |      15700.00 |
+|   1002 | janne     |      19500.00 |
++--------+-----------+---------------+
+3 rows in set (0.01 sec)
+
+mysql> DELIMITER $$
+mysql>
+mysql>
+mysql> CREATE TRIGGER after_delete
+    -> AFTER DELETE ON customer
+    -> FOR EACH ROW
+    -> BEGIN
+    ->
+    -> DELETE FROM customer WHERE acc_no = OLD.acc_no;
+    -> END$$
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>
+mysql> DELIMITER;
+    -> ;
+    -> ^C
+mysql> delete from customer where acc_no=1001;
+    ->
+    ->
+    ->
+    -> ^C
+mysql>
+mysql>
+mysql> select * from customer;
+    ->
+    -> ^C
+mysql>
+
+
+
+
+mysql> DELIMITER &&
+mysql>
+mysql> CREATE PROCEDURE get_merit()
+    -> BEGIN
+    ->     SELECT * FROM student_info WHERE marks > 80;
+    ->     SELECT COUNT(code) AS Total_students FROM student_info;
+    -> END &&
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql>
+mysql>
+mysql> call get_merit();
++-----+------+--------+-------------+-------+------------+
+| id  | code | name   | subject     | marks | phone      |
++-----+------+--------+-------------+-------+------------+
+| 101 | 1001 | Alice  | Mathematics |    88 | 9876543210 |
+| 103 | 1003 | Ganesh | Chemistry   |    91 | 9988776655 |
+| 104 | 1004 | Diana  | Biology     |    84 | 9090909090 |
++-----+------+--------+-------------+-------+------------+
+3 rows in set (0.00 sec)
+
++----------------+
+| Total_students |
++----------------+
+|              5 |
++----------------+
+1 row in set (0.02 sec)
+
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> DELIMITER &&
+mysql> CREATE PROCEDURE get_student(IN var1 INT)
+    -> BEGIN
+    -> SELECT * from student_info limit var1;
+    -> SELECT COUNT(code) as Total_Student from student_info;
+    -> END &&
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>
+mysql> DELIMITER;
+    ->
+    -> ^C
+mysql>
+mysql> DELIMITER ;
+mysql> call get_student(104);
++-----+------+--------+-------------+-------+------------+
+| id  | code | name   | subject     | marks | phone      |
++-----+------+--------+-------------+-------+------------+
+| 101 | 1001 | Alice  | Mathematics |    88 | 9876543210 |
+| 102 | 1002 | Bob    | Physics     |    76 | 9123456789 |
+| 103 | 1003 | Ganesh | Chemistry   |    91 | 9988776655 |
+| 104 | 1004 | Diana  | Biology     |    84 | 9090909090 |
+| 105 | 1005 | Ethan  | English     |    79 | 9012345678 |
++-----+------+--------+-------------+-------+------------+
+5 rows in set (0.02 sec)
+
++---------------+
+| Total_Student |
++---------------+
+|             5 |
++---------------+
+1 row in set (0.05 sec)
+
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> DELIMITER &&
+mysql> CREATE PROCEDURE display_maxMarks(OUT highestMarks INT)
+    -> BEGIN
+    -> SELECT max(marks) into highMarks from student_info;
+    -> END &&
+ERROR 1327 (42000): Undeclared variable: highMarks
+mysql>
+mysql> DELIMITER ;
+mysql>
+mysql> call display_maxMarks(@m);
+ERROR 1305 (42000): PROCEDURE jainx.display_maxMarks does not exist
+mysql>
+mysql>
+mysql>
+mysql> DELIMITER &&
+mysql>
+mysql> CREATE PROCEDURE display_maxMarks(OUT highestMarks INT)
+    -> BEGIN
+    ->     SELECT MAX(marks) INTO highestMarks FROM student_info;
+    -> END &&
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql>
+mysql>
+mysql> CALL display_maxMarks(@m);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> SELECT @m AS Max_Marks;
++-----------+
+| Max_Marks |
++-----------+
+|        91 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql>
+mysql> DELIMITER &&
+mysql> CREATE PROCEDURE display_marks(INOUT var1 INT)
+    -> BEGIN
+    -> SELECT marks into var1 from student_info where id=var1;
+    -> END &&
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> DELIMITER ;
+mysql>
+mysql>
+mysql> set @m='101';
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> call display_marks(@m);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select @m as MARKS;
++-------+
+| MARKS |
++-------+
+|    88 |
++-------+
+1 row in set (0.00 sec)
+
+mysql>
+
+
