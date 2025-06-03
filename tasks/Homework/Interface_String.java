@@ -11,6 +11,7 @@ class Derived implements Base{
         String s=sc.nextLine();
         StringBuilder sb = new StringBuilder();
         sb.append(s);
+        sc.close();
         try{
             if(s == null || s.isEmpty()){
                 throw new NullPointerException();
@@ -21,7 +22,6 @@ class Derived implements Base{
         finally{
             System.out.println("Code Executed ");
         }
-        sc.close();
     }
 
     @Override
