@@ -1,0 +1,48 @@
+<p>databinding works!</p>
+<table class = "outer-table">
+    <tr>
+        <th>One-Way Data Binding</th>
+        <th>Two-Way Data Binding</th>
+    </tr>
+    <tr>
+        <td>
+        <table class = "inner-table">
+            <tr>
+                <th>Interpolation</th>
+                <th>Property Binding</th>
+                <th>Event Binding</th>
+            </tr>
+            <tr>
+                <td>Institute Name = {{instituteName}} <br> (Here the data has been extracted from the Interpolation method)<br><br>{{modelName}}</td>
+                <td>Enter the number = <br><input type="text" [maxLength] = "maxlength" [minLength]="minChar" placeholder="Please enter the number"><br><hr>
+                This is an another form of property binding where we dynamically assigned the value as checkbox but not staticly<br><br><input [type]="inputType" >(checkbox)<br>
+                <hr><p [class] = "styledClass"> This style has applied which dynamic assignment of CSS Class</p> <br><br>{{modelName}}
+                </td>
+                <td>
+                    Here we use Events to be changed dynamically without the javascript <br><br>
+                    <button (click) = "message()">Click Here</button> <hr>
+                    Now using the Event handling, if we change the value of the option it displays the alert of change in the options <br>
+                    <br><br><select (change)="option()">
+                        <option value="">Vishakapatnam</option>
+                        <option value="">Rajamahendravaram</option>
+                        <option value="">Tirupathi</option>
+                    </select><p class="color" (mouseover)="hovered('')" (mouseout)="hovered('red')"
+                        [style.color]="textColor">Om namo Bhagavathe Vasudevaya
+                    </p><br><br>{{modelName}}
+                    </td>
+            </tr>
+
+        </table>
+        </td>
+        <td>
+      <table class="inner-table">
+        <tr><th>ngModel</th></tr>
+        <tr>
+            <td>
+                <input type="text" [(ngModel)]="modelName"><br><br>{{modelName}}
+            </td>
+        </tr>
+      </table>
+    </td>
+    </tr>
+</table>

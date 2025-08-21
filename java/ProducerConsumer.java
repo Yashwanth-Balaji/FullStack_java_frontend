@@ -78,3 +78,29 @@ class ProducerConsumer {
         c.start();
     }
 }
+
+/*
+try{
+    synchronized void put(int i){
+        if(valueIsProduced == true){
+            wait();
+        }
+        else{
+            data = i;
+            System.out.println("values");
+            notify();
+        }
+    }
+
+    synchronized void put(int i){
+        if(valueIsProduced == false){
+            wait();
+        }
+        else{
+            data = i;
+            System.out.println("values");
+            notify();
+        }
+    }
+}
+*/

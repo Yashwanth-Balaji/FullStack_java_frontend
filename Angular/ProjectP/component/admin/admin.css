@@ -1,0 +1,10 @@
+.container {
+    display: flex;
+    flex-direction: column;   /* stack p and span vertically */
+    justify-content: center;  /* vertical center if container has height */
+    align-items: center;      /* horizontal center */
+}
+
+.basic {
+    color: rgb(255, 0, 0);
+}

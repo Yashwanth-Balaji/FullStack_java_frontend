@@ -1,0 +1,58 @@
+/* Outer table styles */
+.outer-table {
+  width: 70%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.outer-table th {
+  background-color: #0078d7;
+  color: white;
+  padding: 12px;
+  font-size: 18px;
+  border: 1px solid #ddd;
+}
+
+.outer-table td {
+  border: 1px solid #ddd;
+  padding: 15px;
+  vertical-align: top;
+  background-color: #f9f9f9;
+}
+
+/* Inner table styles */
+.inner-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+
+.inner-table td {
+  padding: 8px;
+  border: 1px solid #ccc;
+  background-color: #ffffff;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effects */
+.inner-table td:hover {
+  background-color: #e6f7ff;
+}
+
+/* Optional: Center the paragraph */
+p {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+.colorandfont{
+    color:chartreuse;
+    font-size: 20px;
+}
+.color{
+    color:fuchsia;
+}

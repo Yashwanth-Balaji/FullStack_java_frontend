@@ -1,0 +1,47 @@
+<table class="table table-bordered text-center mt-4" border ="2">
+  <tr>
+    <!-- Interpolation -->
+    <th><h3 class="text-danger">Interpolation</h3></th>
+    <th><h3 class="text-danger">Property Binding</h3></th>
+    <th><h3 class="text-danger">Event Binding</h3></th>
+    </tr>
+    <tr>
+    <td class="align-top">
+      <p><strong>Name:</strong> {{ name }}</p>
+      <p><strong>Age:</strong> {{ age }}</p>
+      <p><strong>City:</strong> {{ city }}</p>
+      <img [src]="image" width="50" height="50" alt="Image">
+      <input
+        type="text"
+        placeholder="Enter Something..."
+        [disabled]="isDisabled"
+        class="form-control mt-2"
+      />
+    </td>
+
+    <!-- Property Binding -->
+    
+    <td class="align-top">
+      <img [src]="image" width="50" height="50" alt="Image"><br><br>
+      <input
+        type="text"
+        placeholder="Enter Something..."
+        [disabled]="isDisabled"
+        class="form-control"
+      />
+    </td>
+
+    <!-- Event Binding -->
+    <td class="align-top">
+      <button (click)="display()" class="btn btn-info mb-2">Click Me</button><br>
+      <select (change)="citySelected($event)" class="form-select">
+        <option value="">-</option>
+        <option value="Bangalore">Bangalore</option>
+        <option value="Mysore">Mysore</option>
+        <option value="Hyderabad">Hyderabad</option>
+        <option value="Chennai">Chennai</option>
+      </select>
+      <p>You had selected the city {{ cname }}</p> 
+    </td>
+  </tr>
+</table>
