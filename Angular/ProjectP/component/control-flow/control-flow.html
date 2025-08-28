@@ -1,0 +1,85 @@
+<h1>Welcome</h1>
+
+<table style="border:3px solid red; width:100%; border-radius: 20px;">
+  <tbody>
+    <tr>
+      <td>
+        @if (isParaVisible) {
+          <p>This is a Sample Paragraph</p>
+        } @else {
+          <h3>isParaVisible has a false Value</h3>
+        }
+      </td>
+      <td>
+        <button (click)="showP()">Show Para</button>
+      </td>
+      <td>
+        <button (click)="hideP()">Hide Para</button>
+      </td>
+    </tr>
+    <tr>
+        <td>
+            @if (month == 'jan'){
+                <span>January</span>
+            } @else if (month == 'feb'){
+                <span>February</span>
+            } @else if (month == 'mar'){
+                <span>March</span>
+            } @else {
+                <span>Wrong Input</span>
+            }
+        </td>
+        <td>
+            <input type="text" [(ngModel)]="month">
+        </td>
+    </tr>
+    <tr>
+        <td>
+           <b> City List </b>
+            <ul>
+                @for (item of city; track $index){
+                    <li>{{ item }}</li>
+                }
+            </ul>
+        </td>
+
+        <td>
+            <select name="" id="">
+                @for (item of city; track $index){
+                    <option value="">{{item}}</option>
+                }
+            </select>
+        </td>
+    </tr>
+    
+  </tbody>
+</table>
+
+<br><br>
+
+<table align="center" border="2px solid green" >
+    <thead>
+        <tr align="center">
+            <td>S No</td>
+            <td>Name</td>
+            <td>City</td>
+            <td>Status........!</td>
+        </tr>
+    </thead>
+    <tbody>
+            @for (item of studentDetails;track $index){
+                <tr>
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.city }}</td>
+                    <td>
+                        @if (item.isStatus){
+                            <h6>Active</h6>
+                        } @else {
+                            <h6>De Active</h6>
+                        }
+                    </td>
+                </tr>
+            }
+    </tbody>
+</table>
